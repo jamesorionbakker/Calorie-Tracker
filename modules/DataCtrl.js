@@ -28,7 +28,7 @@ export const setCurrentItem = function (item) {
 export const getCurrentItem = function () {
     return data.currentItem;
 }
-export const addItem = function (name, calories) {
+export const createItem = function (name, calories) {
     let ID = 0;
     if (data.items.length > 0) {
         ID = data.items[data.items.length - 1].id + 1;
@@ -51,7 +51,7 @@ export const deleteAll = function () {
     data.totalCalories = 0;
 }
 export const logData = function () {
-    return data;
+    console.log(data);
 }
 export const getTotalCalories = function () {
     data.totalCalories = data.items.reduce(function (acc, current) {

@@ -19,27 +19,27 @@ const hideElements = (...selectors) => {
 }
 const showElements = (...selectors) => {
     selectors.forEach(selector => {
-        document.querySelector(selector).style.display = 'initial'
+        document.querySelector(selector).style.display = ''
     });
 }
 //EXPORTED FUNCTIONS
 export const populateItemList = function (items) {
-    let html = '';
     if (items.length === 0) {
-        document.querySelector(UISelectors.itemList).style.display = 'none'
+        hideElements(UISelectors.itemList);
     } else {
-        document.querySelector(UISelectors.itemList).style.display = 'block'
+        showElements(UISelectors.itemList);
     }
-    items.forEach(item => {
-        html += `<li class="collection-item" id="item-${item.id}">
-                <strong>${item.name}: </strong><em>${item.calories}</em>
-                <a href="#" class="secondary-content">
-                <i data-id=${item.id} class="delete-item fa fa-trash"></i>&nbsp;&nbsp;
-                    <i data-id=${item.id} class="edit-item fa fa-pencil"></i>
-                </a>
-            </li>`
-    });
-    document.querySelector(UISelectors.itemList).innerHTML = html;
+    let listHTML = items.reduce(function (acc, item) {
+        console.log(item);
+        return acc += `<li class="collection-item" id="item-${item.id}">
+        <strong>${item.name}: </strong><em>${item.calories}</em>
+        <a href="#" class="secondary-content">
+        <i data-id=${item.id} class="delete-item fa fa-trash"></i>&nbsp;&nbsp;
+            <i data-id=${item.id} class="edit-item fa fa-pencil"></i>
+        </a>
+        </li>`
+    }, '')
+    document.querySelector(UISelectors.itemList).innerHTML = listHTML;
 }
 export const populateTotalCalories = function (total) {
     document.querySelector(UISelectors.totalCalories).textContent = total;
@@ -53,7 +53,7 @@ export const getItemInput = function () {
         calories: parseInt(document.querySelector(UISelectors.itemCaloriesInput).value)
     }
 }
-export const clearInputs = function () {
+export const clearForm = function () {
     document.querySelector(UISelectors.itemNameInput).value = null;
     document.querySelector(UISelectors.itemCaloriesInput).value = null;
 }

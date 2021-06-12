@@ -48,25 +48,24 @@ const inlineItemDelete = (e) => { // INLINE DELETE BUTTON HANDLER
 }
 const backBtnClick = (e) => { //EDIT STATE: BACK BUTTON HANDLER
     Data.setCurrentItem(null);
-    UI.clearInputs();
+    UI.clearForm();
     UI.state().add();
-
 }
 const itemAddSubmit = function (e) { //ADD STATE: ADD ITEM SUBMIT HANDLER
     const input = UI.getItemInput();
     if (input.name !== '' && input.calories !== '') {
-        const newItem = Data.addItem(input.name, input.calories);
+        const newItem = Data.createItem(input.name, input.calories);
     }
     Storage.set(Data.getItems())
     refreshUI();
-    UI.clearInputs()
+    UI.clearForm()
     e.preventDefault();
 }
 const itemUpdateSubmit = (e) => { //EDIT STATE: EDIT ITEM SUBMIT HANDLER
     Data.updateItem(UI.getItemInput());
     Storage.set(Data.getItems())
     refreshUI()
-    UI.clearInputs()
+    UI.clearForm()
     Data.setCurrentItem(null);
     UI.state().add();
 }
@@ -74,7 +73,7 @@ const itemDeleteSubmit = (e) => { //EDIT STATE: DELETE BUTTON HANDLER
     Data.deleteItem()
     Storage.set(Data.getItems())
     refreshUI();
-    UI.clearInputs()
+    UI.clearForm()
     Data.setCurrentItem(null);
     UI.state().add();
     e.preventDefault()
@@ -100,5 +99,4 @@ export const init = function () {
     UI.populateTotalCalories(Data.getTotalCalories());
     UI.state().add();
     loadEventListeners();
-
 }
